@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.7.9'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id 'org.jetbrains.kotlin.jvm' version '1.6.21'
+    id 'org.jetbrains.kotlin.plugin.spring' version '1.6.21'
+    id 'org.jetbrains.kotlin.plugin.jpa' version '1.6.21'
+}
+
+allprojects {// 내 하위에 있는 모든 프로젝트는 repositories를 maven으로 쓰겠다.
+
+    repositories {
+        mavenCentral()
+    }
+}
+
+bootJar { // 부모에는 소스코드가 없어 jar로 파일이 안떨어 지므로 false로 해줘야 한다.
+    enabled = false
+}
+
+jar {
+    enabled = false
+}

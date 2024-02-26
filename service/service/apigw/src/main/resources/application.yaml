@@ -1,0 +1,14 @@
+server:
+  port: 9090
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: public-service-api # 이름
+          uri: http://localhost:8080  # api 서버 주소
+          predicates: # 어떤 요청이 왔을때 이 URL로 보낼지
+            - Path=/service-api/open-api/** # service-api라는게 붙어 있고 open-api로 시작하는 모든 하위 주소는 API서버로 라우팅 하겠다
+          filters:
+            - RewritePath=/service-api(?<segment>/?.*), $\{segment} # RewritePath를 안해주면 404에러발생 -> service-api라는 주소가 없기 때문에 service-api 지워주고 라우팅 해줌
+            - ServiceApiPublicFilter # filter랑 매칭할 클래스 이름
